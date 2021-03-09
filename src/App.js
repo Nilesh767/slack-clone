@@ -1,7 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
+import styled from "styled-components";
+
 import Header from "./Components/Header";
+import Sidebar from "./Components/Sidebar/Sidebar";
+
+import "./App.css";
 
 function App() {
   return (
@@ -9,9 +13,12 @@ function App() {
       <Router>
         <>
           <Header />
-          <Switch>
-            <Route exact path="/"></Route>
-          </Switch>
+          <AppBody>
+            <Sidebar />
+            <Switch>
+              <Route exact path="/"></Route>
+            </Switch>
+          </AppBody>
         </>
       </Router>
     </div>
@@ -19,3 +26,8 @@ function App() {
 }
 
 export default App;
+
+const AppBody = styled.div`
+  display: flex;
+  height: 100vh;
+`;
