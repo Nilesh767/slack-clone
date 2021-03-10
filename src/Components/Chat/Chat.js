@@ -81,17 +81,10 @@ const Chat = () => {
 
 export default Chat;
 
-const ChatContainer = styled.div`
-  flex: 0.7;
-  flex-grow: 1;
-  overflow-y: scroll;
-  margin-top: 60px;
-`;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 28px;
   border-bottom: 1px solid lightgray;
 `;
 
@@ -123,7 +116,15 @@ const HeaderRight = styled.div`
   }
 `;
 
+const ChatContainer = styled.div`
+  flex: 0.7;
+  flex-grow: 1;
+  overflow-y: scroll;
+  margin-top: 60px;
+`;
+
 const ChatMessages = styled.div``;
+
 const ChatBottom = styled.div`
-  padding-bottom: 20px;
+  padding-bottom: 180px;
 `;

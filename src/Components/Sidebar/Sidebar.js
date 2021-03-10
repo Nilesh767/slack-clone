@@ -1,26 +1,20 @@
 import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components";
 
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
 
 import SidebarOption from "./SidebarOption";
 
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CreateIcon from "@material-ui/icons/Create";
-import InsertCommentIcon from "@material-ui/icons/InsertComment";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import AppsIcon from "@material-ui/icons/Apps";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import AddIcon from "@material-ui/icons/Add";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const Sidebar = () => {
-  const [channels, loading, store] = useCollection(db.collection("rooms"));
+  const [user] = useAuthState(auth);
+  const [channels] = useCollection(db.collection("rooms"));
 
   return (
     <SidebarContainer>
@@ -29,22 +23,13 @@ const Sidebar = () => {
           <h2>Neo's Cozy Cave</h2>
           <h3>
             <FiberManualRecordIcon />
-            Neo
+            {user?.displayName}
           </h3>
         </SidebarInfo>
         <CreateIcon />
       </SidebarHeader>
-
-      <SidebarOption Icon={InsertCommentIcon} title="Threads" />
-      <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
-      <SidebarOption Icon={DraftsIcon} title="Saved items" />
-      <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
-      <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-      <SidebarOption Icon={AppsIcon} title="Apps" />
-      <SidebarOption Icon={FileCopyIcon} title="File browser" />
-      <SidebarOption Icon={ExpandLessIcon} title="Show Less" />
       <hr />
-      <SidebarOption Icon={ExpandMoreIcon} title="Show More" />
+      <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
       <SidebarOption Icon={AddIcon} title="Add Channel" addChannelOption />
 
@@ -74,7 +59,6 @@ const SidebarContainer = styled.div`
 
 const SidebarHeader = styled.div`
   display: flex;
-  border-bottom: 1px solid #49274b;
   padding: 13px;
 
   > .MuiSvgIcon-root {

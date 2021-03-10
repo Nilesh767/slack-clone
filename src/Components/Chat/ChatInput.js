@@ -1,16 +1,14 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import firebase from "firebase";
-import { AvatarGenerator } from "random-avatar-generator";
 
 import { Button } from "@material-ui/core";
-import { db } from "../../firebase";
-
-export const generator = new AvatarGenerator();
+import { auth, db } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const ChatInput = ({ chatRef, channelName, channelId }) => {
-  const avatar = generator.generateRandomAvatar();
   const inputRef = useRef(null);
+  const [user] = useAuthState(auth);
 
   const sendMessageHandler = (e) => {
     e.preventDefault();
@@ -22,11 +20,11 @@ const ChatInput = ({ chatRef, channelName, channelId }) => {
     db.collection("rooms").doc(channelId).collection("messages").add({
       message: inputRef.current.value,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: "Neo",
-      userImage: avatar,
+      user: user?.displayName,
+      userImage: user?.photoURL,
     });
 
-    chatRef?.current?.scrollIntoView({
+    chatRef.current.scrollIntoView({
       behavior: "smooth",
     });
 
