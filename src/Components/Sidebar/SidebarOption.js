@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useCollection } from "react-firebase-hooks/firestore";
 import styled from "styled-components";
 
 import { db } from "../../firebase";
@@ -32,7 +31,7 @@ const SidebarOption = ({ Icon, title, addChannelOption, id }) => {
     <SidebarOptionContainer
       onClick={addChannelOption ? addChannel : selectChannel}
     >
-      {Icon && <Icon fontsize="small" style={{ padding: 10 }} />}
+      {Icon && <Icon fontSize="small" style={{ padding: 10 }} />}
       {Icon ? (
         <h3>{title}</h3>
       ) : (
